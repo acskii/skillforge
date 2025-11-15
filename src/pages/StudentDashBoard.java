@@ -237,7 +237,7 @@ public class StudentDashBoard extends javax.swing.JFrame {
 
 
     public static void start(int id) {
-        MainWindow.closeFrame("studentlessons");
+//        MainWindow.closeFrame("studentlessons");
         currentStudent = StudentService.getStudent(id);
 
         instance.STudentid.setText("ID: " + currentStudent.getId());

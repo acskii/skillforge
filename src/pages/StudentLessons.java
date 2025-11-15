@@ -12,8 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import static Components.LessonCard.completeBtn;
-
 public class StudentLessons extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentLessons.class.getName());
@@ -225,7 +223,7 @@ public class StudentLessons extends javax.swing.JFrame {
       }
     public static boolean checkLastLessons(Course course,Lesson l,int id){
         for(Lesson c:course.getLessons()){
-            if(c.getTitle().equals(l.getTitle())) return true;
+            if(c.getTitle().equals(l.getTitle())||c == course.getLessons().get(course.getLessons().size() - 1)) return true;
             else if(!c.getStudentProgress().get(id)) return false;
         }
         return false;
@@ -235,15 +233,26 @@ public class StudentLessons extends javax.swing.JFrame {
     private static int total;
     private static List<Lesson> currentlessons;
     public  static void start(Course course,int ID){
-        MainWindow.closeFrame("StudentDashBoard");
+//        MainWindow.closeFrame("StudentDashBoard");
         BackBtn.addActionListener(e->{
             StudentDashBoard.start(ID);
             MainWindow.goToFrame("StudentDashBoard");
         });
         total=course.getLessons().size();
         completed=unCompleted=0;
+        if(!course.getLessons().get(0).getStudentProgress().containsKey(ID)){
+            List<Lesson> lessons = course.getLessons();
+            for (int i = 0; i < lessons.size(); i++) {
+                Lesson l = lessons.get(i);
+                Boolean status = l.getStudentProgress().get(ID);
+                if (status == null) {
+                    StudentService.takeLesson(ID, l.getId());
+                }
+            }
+        }
         currentlessons=course.getLessons();
         for(Lesson l:course.getLessons()){
+            if(l.getStudentProgress().get(ID)==null) return;
             if(l.getStudentProgress().get(ID)){
                 completed++;
             }
@@ -267,21 +276,14 @@ public class StudentLessons extends javax.swing.JFrame {
                     l.getContent(),
                     l.getStudentProgress().getOrDefault(ID, false),
                     e -> {
-                        final boolean state=checkLastLessons(course,l,ID);
-                        if(state){
-                            l.getStudentProgress().put(ID,true);
+                        if(checkLastLessons(course,l,ID)){
                             //save the update to file
-                            completeBtn.setText("Completed");
-                            completeBtn.setBackground(Color.green);
-                            completeBtn.setEnabled(false);
-                            completed=unCompleted=0;
-                            currentlessons=course.getLessons();
-                            for(Lesson c:course.getLessons()){
-                                if(c.getStudentProgress().get(ID)){
-                                    completed++;
-                                }
-                                else unCompleted++;
-                            }
+                            card.completeBtn.setText("Completed");
+                            StudentService.completeLesson(ID,l.getId());
+                            card.completeBtn.setBackground(Color.green);
+                            card.completeBtn.setEnabled(false);
+                            completed++;
+                            unCompleted--;
                             Completed.setText("Completed:"+completed);
                             uncompleted.setText("UnCompleted:"+unCompleted);
                             progress.setText("Progress:"+(completed/total)*100+"%");
@@ -289,7 +291,6 @@ public class StudentLessons extends javax.swing.JFrame {
                         else{
                             showMessage("You Need To complete the last Lessons Before This First");
                         }
-                        if(state) StudentService.completeLesson(ID,l.getId());
                     }
             );
             lessonsPanel.add(card);
@@ -306,7 +307,6 @@ public class StudentLessons extends javax.swing.JFrame {
         jPanel4.add(scrollPane, BorderLayout.CENTER);
         jPanel4.revalidate();
         jPanel4.repaint();
-
     }
     // Variables declaration - do not modify
     private static   javax.swing.JButton BackBtn;

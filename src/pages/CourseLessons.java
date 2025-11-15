@@ -188,7 +188,10 @@ public class CourseLessons extends javax.swing.JFrame {
     private static int total;
     private static List<Lesson> currentlessons;
     public static void start(Course course, int ID){
-        MainWindow.closeFrame("CorsesView");
+        CoursesView Frame = (CoursesView) MainWindow.getFrame("CoursesView");
+        if(Frame != null){
+            Frame.setVisible(false);
+        }
         CourseLessons frame = new CourseLessons();
         frame.setVisible(true);
 

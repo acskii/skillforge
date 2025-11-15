@@ -7,8 +7,7 @@ import javax.swing.*;
 public class LessonCard extends JPanel {
     private JLabel titleLabel;
     private JLabel contentLabel;
-    public static JButton completeBtn;
-
+    public  JButton completeBtn;
     public LessonCard() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
