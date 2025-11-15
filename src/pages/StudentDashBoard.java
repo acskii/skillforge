@@ -242,7 +242,6 @@ public class StudentDashBoard extends javax.swing.JFrame {
 
 
     public static void start(int id) {
-        new CourseDatabase("src/resources/courses.json").saveToFile();
         MainWindow.closeFrame("studentlessons");
         currentStudent = StudentService.getStudent(id);
 

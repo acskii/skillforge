@@ -16,7 +16,7 @@ import services.StudentService;
 import windows.MainWindow;
 
 public class CoursesView extends javax.swing.JFrame {
-
+    private static final CourseDatabase db = CourseDatabase.getInstance();
     private static CoursesView instance; // تعريف instance
    private static int currentstudent=0;
     public CoursesView() {
@@ -53,7 +53,7 @@ public class CoursesView extends javax.swing.JFrame {
     private void filterCourses() {
         String text = searchfeild.getText().trim();
         List<Course> filteredCourses = new ArrayList<>();
-        for (Course c : new CourseDatabase("src/resources/courses.json").getRecords()) {
+        for (Course c : db.getRecords()) {
             if (text.equals("") || text.equals("Search Course By name...") ||
                     c.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filteredCourses.add(c);
@@ -254,7 +254,7 @@ public class CoursesView extends javax.swing.JFrame {
                 MainWindow.goToFrame("StudentDashBoard");
             });
         }
-        instance.showCards(new CourseDatabase("src/resources/courses.json").getRecords(), id);
+        instance.showCards(db.getRecords(), id);
         MainWindow.goToFrame("CoursesView");
     }
 

@@ -250,7 +250,6 @@ public class CourseLessons extends javax.swing.JFrame {
             int response=showMessage("Do You Want to Enroll the Course with name:"+course.getTitle());
             if(response == JOptionPane.YES_OPTION){
                  StudentService.enroll(ID,course.getId());
-                 new CourseDatabase("src/resources/courses.json").saveToFile();
                  frame.dispose();
                  StudentDashBoard.start(ID);
                  MainWindow.goToFrame("StudentDashBoard");
