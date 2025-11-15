@@ -35,13 +35,18 @@ public abstract class Database<T extends Model> {
     protected final List<T> records = new ArrayList<>();
     protected int index = 1;
 
-    public Database(String filename, Class<T> type) {
+    protected Database(String filename, Class<T> type) {
         this.filename = filename;
         this.classType = type;
         this.logName = this.getClass().getSimpleName();
 
         readFile();
-        this.index = this.records.size();
+
+        /* Use the highest ID as a starting point */
+        if (this.records.isEmpty()) this.index = 0;
+        for (T record : this.records) {
+            this.index = Math.max(this.index, record.getId());
+        }
     }
 
     public List<T> getRecords() {
