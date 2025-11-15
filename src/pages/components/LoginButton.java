@@ -1,6 +1,8 @@
 package pages.components;
 
 import databases.UserDatabase;
+import pages.StudentDashBoard;
+import windows.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,9 +75,11 @@ public class LoginButton extends JButton {
                 /* Go to next page */
                 email.setText("");
                 password.setText("");
-                System.out.println("Logged in!");
                 // Add page after user login here
-                // MainWindow.goTo("pageName");
+                // Will add based on roles once other dashboard is made
+                StudentDashBoard.start(db.getUserByEmail(currentEmail).getId());
+                MainWindow.goToFrame("StudentDashBoard");
+
             } else {
                 JOptionPane.showMessageDialog(this,
                         "Incorrect email or password",

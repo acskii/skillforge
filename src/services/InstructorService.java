@@ -32,6 +32,7 @@ public class InstructorService {
         instructor.setCourses(courses);
         instructor.setEmail(user.getEmail());
         instructor.setPassword(user.getPassword());
+        instructor.setName(user.getName());
         instructor.setRole("Instructor");
 
         return instructor;

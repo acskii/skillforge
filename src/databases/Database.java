@@ -57,6 +57,7 @@ public abstract class Database<T extends Model> {
         if (record != null) {
             if (getRecordById(record.getId()) == null) {
                 this.records.add(record);
+                saveToFile();
             }
         }
     }
