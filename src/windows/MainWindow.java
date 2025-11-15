@@ -118,4 +118,31 @@ public class MainWindow {
             cardLayout.show(cardPanel, name);
         }
     }
+    //For frames
+    private static final Map<String, JFrame> frames = new HashMap<>();
+    public static void addFrame(String name, JFrame frame) {
+        if (!frames.containsKey(name)) {
+            frames.put(name, frame);
+        }
+    }
+    public static void goToFrame(String name) {
+        closeFrame("StudentDashBoard");
+        closeFrame("CorsesView");
+        closeFrame("studentlessons");
+        closeFrame("CourseLessons");
+        JFrame frame = frames.getOrDefault(name, null);
+        if (frame != null) {
+            frame.setVisible(true);
+            frame.toFront();
+            frame.requestFocus();
+        }
+    }
+    public static void closeFrame(String name){
+        JFrame frame = frames.getOrDefault(name, null);
+        if (frame != null) {
+            frame.setVisible(false);
+            frame.toFront();
+            frame.requestFocus();
+        }
+    }
 }

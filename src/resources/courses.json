@@ -1,87 +1,73 @@
-[
-  {
-    "id": 1,
-    "title": "Introduction to Programming",
-    "instructorId": 3,
-    "lessons": [
-      {
-        "id": 1,
-        "title": "What is Programming?",
-        "content": "Programming is the process of creating instructions for computers...",
-        "studentProgress": {
-          "1": true,
-          "2": false
-        }
-      },
-      {
-        "id": 2,
-        "title": "Variables and Data Types",
-        "content": "Variables are used to store data in programming...",
-        "studentProgress": {
-          "1": true,
-          "2": true
-        }
-      },
-      {
-        "id": 3,
-        "title": "Control Structures",
-        "content": "Control structures determine the flow of program execution...",
-        "studentProgress": {
-          "1": false,
-          "2": true
-        }
-      }
-    ],
-    "enrolledStudents": [1, 2]
-  },
-  {
-    "id": 2,
-    "title": "Advanced Mathematics",
-    "instructorId": 4,
-    "lessons": [
-      {
-        "id": 4,
-        "title": "Calculus Fundamentals",
-        "content": "Calculus is the mathematical study of continuous change...",
-        "studentProgress": {
-          "1": true,
-          "2": false
-        }
-      },
-      {
-        "id": 5,
-        "title": "Linear Algebra",
-        "content": "Linear algebra deals with vectors, vector spaces, and linear transformations...",
-        "studentProgress": {
-          "1": false,
-          "2": false
-        }
-      }
-    ],
-    "enrolledStudents": [1, 2]
-  },
-  {
-    "id": 3,
-    "title": "Web Development Basics",
-    "instructorId": 3,
-    "lessons": [
-      {
-        "id": 6,
-        "title": "HTML and CSS",
-        "content": "HTML provides the structure of web pages, while CSS handles the styling...",
-        "studentProgress": {
-          "2": true
-        }
-      },
-      {
-        "id": 7,
-        "title": "JavaScript Fundamentals",
-        "content": "JavaScript adds interactivity to web pages...",
-        "studentProgress": {
-          "2": false
-        }
-      }
-    ],
-    "enrolledStudents": [2]
-  }
-]
+[ {
+  "enrolledStudents" : [ 1, 2 ],
+  "id" : 1,
+  "instructorId" : 3,
+  "lessons" : [ {
+    "content" : "Programming is the process of creating instructions for computers...",
+    "id" : 1,
+    "studentProgress" : {
+      "1" : true,
+      "2" : false
+    },
+    "title" : "What is Programming?"
+  }, {
+    "content" : "Variables are used to store data in programming...",
+    "id" : 2,
+    "studentProgress" : {
+      "1" : true,
+      "2" : true
+    },
+    "title" : "Variables and Data Types"
+  }, {
+    "content" : "Control structures determine the flow of program execution...",
+    "id" : 3,
+    "studentProgress" : {
+      "1" : false,
+      "2" : true
+    },
+    "title" : "Control Structures"
+  } ],
+  "title" : "Introduction to Programming"
+}, {
+  "enrolledStudents" : [ 1, 2 ],
+  "id" : 2,
+  "instructorId" : 4,
+  "lessons" : [ {
+    "content" : "Calculus is the mathematical study of continuous change...",
+    "id" : 4,
+    "studentProgress" : {
+      "1" : true,
+      "2" : false
+    },
+    "title" : "Calculus Fundamentals"
+  }, {
+    "content" : "Linear algebra deals with vectors, vector spaces, and linear transformations...",
+    "id" : 5,
+    "studentProgress" : {
+      "1" : false,
+      "2" : false
+    },
+    "title" : "Linear Algebra"
+  } ],
+  "title" : "Advanced Mathematics"
+}, {
+  "enrolledStudents" : [ 2, 1 ],
+  "id" : 3,
+  "instructorId" : 3,
+  "lessons" : [ {
+    "content" : "HTML provides the structure of web pages, while CSS handles the styling...",
+    "id" : 6,
+    "studentProgress" : {
+      "2" : true
+    },
+    "title" : "HTML and CSS"
+  }, {
+    "content" : "JavaScript adds interactivity to web pages...",
+    "id" : 7,
+    "studentProgress" : {
+      "2" : false
+    },
+    "title" : "JavaScript Fundamentals"
+  } ],
+  "title" : "Web Development Basics"
+} ]
