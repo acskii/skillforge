@@ -1,1 +1,43 @@
-[]
+[ {
+  "email" : "john.doe@email.com",
+  "id" : 1,
+  "name" : "John Doe",
+  "password" : "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+  "role" : "Student"
+}, {
+  "email" : "jane.smith@email.com",
+  "id" : 2,
+  "name" : "Jane Smith",
+  "password" : "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+  "role" : "Student"
+}, {
+  "email" : "prof.wilson@email.com",
+  "id" : 3,
+  "name" : "Professor Wilson",
+  "password" : "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+  "role" : "Instructor"
+}, {
+  "email" : "dr.brown@email.com",
+  "id" : 4,
+  "name" : "Dr. Brown",
+  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+  "role" : "Instructor"
+}, {
+  "email" : "test",
+  "id" : 5,
+  "name" : "test",
+  "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
+  "role" : "Student"
+}, {
+  "email" : "test",
+  "id" : 6,
+  "name" : "test",
+  "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
+  "role" : "Student"
+}, {
+  "email" : "test",
+  "id" : 7,
+  "name" : "test",
+  "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
+  "role" : "Student"
+} ]
