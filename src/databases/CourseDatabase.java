@@ -17,7 +17,7 @@ public class CourseDatabase extends Database<Course> {
     private int lessonIndex = 1;
     private static CourseDatabase instance;
 
-    private CourseDatabase(String filename) {
+    public CourseDatabase(String filename) {
         super(filename, Course.class);
 
         /* Determines the most recent ID for all lessons */
@@ -39,15 +39,23 @@ public class CourseDatabase extends Database<Course> {
     public void deleteCourse(int id) {deleteRecord(id);}
     public void deleteLesson(int id) {
         for (Course c : getRecords()) {
-            for (Lesson l : c.getLessons()) {
+            List<Lesson> ls = c.getLessons();
+
+            boolean found = false;
+            for (Lesson l : ls) {
                 if (l.getId() == id) {
-                    List<Lesson> ls = c.getLessons();
-                    ls.removeIf((t) -> t.getId() == id);
-                    c.setLessons(ls);
+                    found = true;
+                    break;
                 }
+            }
+
+            if (found) {
+                ls.removeIf(t -> t.getId() == id);
+                c.setLessons(ls);
             }
         }
     }
+
 
     public Course getCourseById(int id) {return getRecordById(id);}
 
