@@ -16,7 +16,7 @@ import windows.MainWindow;
 public class CoursesView extends javax.swing.JFrame {
     private static final CourseDatabase db = CourseDatabase.getInstance();
     private static CoursesView instance;
-   private static int currentstudent=0;
+    private static int currentstudent=0;
     public CoursesView() {
         initComponents();
         setupSearchField();
@@ -242,7 +242,7 @@ public class CoursesView extends javax.swing.JFrame {
     }
 
     public static void start(int id) {
-        MainWindow.closeFrame("StudentDashBoard");
+//        MainWindow.closeFrame("StudentDashBoard");
         currentstudent = id;
         if (instance == null) {
             instance = new CoursesView();
