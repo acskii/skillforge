@@ -3,6 +3,8 @@ package databases;
 import models.User;
 import security.PasswordService;
 
+import java.util.regex.Pattern;
+
 // Andrew :)
 
 /*
@@ -34,6 +36,12 @@ public class UserDatabase extends Database<User> {
         return instance;
     }
 
+    public static boolean validateEmail(String email) {
+        if (email == null || email.trim().isEmpty()) return false;
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        return Pattern.matches(emailRegex, email);
+    }
+
     public void deleteUser(int id) {deleteRecord(id);}
     public User getUserById(int id) {return getRecordById(id);}
 
@@ -46,7 +54,7 @@ public class UserDatabase extends Database<User> {
     }
 
     public boolean addUser(String name, String email, String password, String role) {
-        if (getUserByEmail(email) == null) {
+        if (getUserByEmail(email) == null && validateEmail(email)) {
             User user = new User();
             user.setId(++this.index);
             user.setRole(role);     // Validation needed here

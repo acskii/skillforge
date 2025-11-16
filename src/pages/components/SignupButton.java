@@ -59,13 +59,13 @@ public class SignupButton extends JButton {
             return;
         }
 
-        /* Validate email format */
-        //  TODO: Validation is needed here
-        //            JOptionPane.showMessageDialog(this,
-        //                    "Please enter a valid email address",
-        //                    "Invalid Email",
-        //                    JOptionPane.WARNING_MESSAGE);
-        //            return;
+        if (!UserDatabase.validateEmail(userEmail)) {
+            JOptionPane.showMessageDialog(this,
+                    "Please fill out a valid email",
+                    "Invalid Email",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
         /* Validate password length */
         if (userPassword.length() < 6) {
