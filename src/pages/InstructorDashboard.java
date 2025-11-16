@@ -33,6 +33,8 @@ public class InstructorDashboard extends JFrame {
     public InstructorDashboard() {
         initComponents();
         instance = this;
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {
