@@ -7,6 +7,7 @@ import windows.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class InstructorDashboard extends JFrame {
@@ -26,9 +27,14 @@ public class InstructorDashboard extends JFrame {
     private JLabel jLabel5;
     private JPanel coursesPanel;
 
+    // Flag to track if listeners are already added
+    private static boolean listenersAdded = false;
+
     public InstructorDashboard() {
         initComponents();
         instance = this;
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {
@@ -140,17 +146,8 @@ public class InstructorDashboard extends JFrame {
         jLabel5.setText("My Courses");
 
         coursesPanel.setBackground(new Color(204, 204, 204));
-
-        GroupLayout coursesPanelLayout = new GroupLayout(coursesPanel);
-        coursesPanel.setLayout(coursesPanelLayout);
-        coursesPanelLayout.setHorizontalGroup(
-                coursesPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
-        coursesPanelLayout.setVerticalGroup(
-                coursesPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 506, Short.MAX_VALUE)
-        );
+        coursesPanel.setLayout(new BorderLayout());
+        coursesPanel.setPreferredSize(new Dimension(0, 506));
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,6 +187,14 @@ public class InstructorDashboard extends JFrame {
         );
 
         pack();
+    }
+
+    private static void removeAllActionListeners(JButton button) {
+        // Remove all existing ActionListeners
+        ActionListener[] listeners = button.getActionListeners();
+        for (ActionListener listener : listeners) {
+            button.removeActionListener(listener);
+        }
     }
 
     private static JPanel createCourseCard(Course course, int instructorId) {
@@ -268,25 +273,46 @@ public class InstructorDashboard extends JFrame {
         List<Course> courses = InstructorService.getCourses(instructorId);
         instance.coursesCountLabel.setText("Courses: " + courses.size());
 
+        // Calculate grid layout (3 columns)
+        int columns = 3;
+        int rows = (int) Math.ceil(courses.size() / (double) columns);
+        if (rows == 0) rows = 1; // At least 1 row
+
         JPanel coursesInnerPanel = new JPanel();
-        coursesInnerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        coursesInnerPanel.setLayout(new GridLayout(rows, columns, 10, 10));
+        coursesInnerPanel.setBackground(Color.WHITE);
+        coursesInnerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         for (Course c : courses) {
             coursesInnerPanel.add(createCourseCard(c, instructorId));
         }
 
-        JScrollPane scrollPane = new JScrollPane(coursesInnerPanel,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        // Fill empty cells if needed
+        int emptyCells = (rows * columns) - courses.size();
+        for (int i = 0; i < emptyCells; i++) {
+            coursesInnerPanel.add(new JPanel());
+        }
 
-        instance.logoutBtn.addActionListener(e -> {
-            MainWindow.closeFrame("InstructorDashboard");
-            MainWindow.goTo("login");
-            MainWindow.start();
-        });
+        JScrollPane scrollPane = new JScrollPane(coursesInnerPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBorder(null);
 
-        instance.createCourseBtn.addActionListener(e -> {
-            CreateCourseDialog.showDialog(instructorId, instance);
-        });
+        // Add listeners only once
+        if (!listenersAdded) {
+            instance.logoutBtn.addActionListener(e -> {
+                MainWindow.closeFrame("InstructorDashboard");
+                MainWindow.goTo("login");
+                MainWindow.start();
+            });
+
+            instance.createCourseBtn.addActionListener(e -> {
+                CreateCourseDialog.showDialog(instructorId, instance);
+            });
+
+            listenersAdded = true;
+        }
 
         instance.coursesPanel.removeAll();
         instance.coursesPanel.setLayout(new BorderLayout());

@@ -1,5 +1,35 @@
 [ {
-  "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
+  "enrolledStudents" : [ 1, 2 ],
+  "id" : 1,
+  "instructorId" : 3,
+  "lessons" : [ {
+    "content" : "Programming is the process of creating instructions for computers...",
+    "id" : 1,
+    "studentProgress" : {
+      "1" : true,
+      "2" : false
+    },
+    "title" : "What is Programming?"
+  }, {
+    "content" : "Variables are used to store data in programming...",
+    "id" : 2,
+    "studentProgress" : {
+      "1" : true,
+      "2" : true
+    },
+    "title" : "Variables and Data Types"
+  }, {
+    "content" : "Control structures determine the flow of program execution...",
+    "id" : 3,
+    "studentProgress" : {
+      "1" : false,
+      "2" : true
+    },
+    "title" : "Control Structures"
+  } ],
+  "title" : "Introduction to Programming"
+}, {
+  "enrolledStudents" : [ 1, 2 ],
   "id" : 2,
   "instructorId" : 4,
   "lessons" : [ {
@@ -7,11 +37,7 @@
     "id" : 4,
     "studentProgress" : {
       "1" : true,
-      "2" : false,
-      "8" : true,
-      "9" : true,
-      "10" : false,
-      "11" : false
+      "2" : false
     },
     "title" : "Calculus Fundamentals"
   }, {
@@ -19,48 +45,34 @@
     "id" : 5,
     "studentProgress" : {
       "1" : false,
-      "2" : false,
-      "8" : true,
-      "9" : true,
-      "10" : false,
-      "11" : false
+      "2" : false
     },
     "title" : "Linear Algebra"
   } ],
   "title" : "Advanced Mathematics"
 }, {
-  "enrolledStudents" : [ 2, 1, 8, 9, 10, 11, 12 ],
+  "enrolledStudents" : [ 2, 1 ],
   "id" : 3,
   "instructorId" : 3,
   "lessons" : [ {
-    "content" : "JavaScript adds interactivity to web pages...",
-    "id" : 7,
-    "studentProgress" : {
-      "2" : false,
-      "8" : true,
-      "9" : true,
-      "10" : true,
-      "11" : false,
-      "12" : true
-    },
-    "title" : "JavaScript Fundamentals"
-  }, {
     "content" : "HTML provides the structure of web pages, while CSS handles the styling...",
     "id" : 6,
     "studentProgress" : {
-      "2" : true,
-      "8" : true,
-      "9" : true,
-      "10" : true,
-      "11" : false,
-      "12" : true
+      "2" : true
     },
     "title" : "HTML and CSS"
+  }, {
+    "content" : "JavaScript adds interactivity to web pages...",
+    "id" : 7,
+    "studentProgress" : {
+      "2" : false
+    },
+    "title" : "JavaScript Fundamentals"
   } ],
   "title" : "Web Development Basics"
 }, {
   "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
-  "id" : 1,
+  "id" : 5,
   "instructorId" : 3,
   "lessons" : [ {
     "content" : "Programming is the process of creating instructions for computers...",
@@ -75,90 +87,38 @@
     },
     "title" : "What is Programming?"
   }, {
-    "content" : "Control structures determine the flow of program execution...",
-    "id" : 3,
-    "studentProgress" : {
-      "1" : false,
-      "2" : true,
-      "8" : true,
-      "9" : true,
-      "10" : true,
-      "11" : false
-    },
-    "title" : "Control Structures"
+    "content" : "RAM",
+    "id" : 9,
+    "studentProgress" : { },
+    "title" : "lesson2"
   }, {
-    "content" : "Variables are used to store data in programming...",
-    "id" : 2,
-    "studentProgress" : {
-      "1" : true,
-      "2" : true,
-      "8" : true,
-      "9" : true,
-      "10" : true,
-      "11" : false
-    },
-    "title" : "Variables and Data Types"
+    "content" : "kkldvlk",
+    "id" : 10,
+    "studentProgress" : { },
+    "title" : "lesson3"
+  }, {
+    "content" : "kkjvv",
+    "id" : 11,
+    "studentProgress" : { },
+    "title" : "lesson4"
   } ],
-  "title" : "Introduction to Programming"
-}, {
-  "enrolledStudents" : [ 10, 10, 11 ],
-  "id" : 5,
-  "instructorId" : 8,
-  "lessons" : [ ],
-  "title" : "fgdgh"
-}, {
-  "enrolledStudents" : [ 10, 11 ],
-  "id" : 6,
-  "instructorId" : 13,
-  "lessons" : [ {
-    "content" : "1",
-    "id" : 8,
-    "studentProgress" : {
-      "10" : false
-    },
-    "title" : "g"
-  } ],
-  "title" : "Machine learning"
-}, {
+  "title" : "operating system"
+},{
   "enrolledStudents" : [ 10, 11 ],
   "id" : 7,
-  "instructorId" : 13,
+  "instructorId" : 8,
   "lessons" : [ ],
-  "title" : "sa"
+  "title" : "prog"
 }, {
-  "enrolledStudents" : [ 11 ],
+  "enrolledStudents" : [ ],
   "id" : 8,
-  "instructorId" : 14,
+  "instructorId" : 8,
   "lessons" : [ ],
-  "title" : "fd"
+  "title" : "ml;dafm"
 }, {
   "enrolledStudents" : [ ],
   "id" : 9,
-  "instructorId" : 15,
-  "lessons" : [ ],
-  "title" : "dsa"
-}, {
-  "enrolledStudents" : [ ],
-  "id" : 10,
-  "instructorId" : 15,
-  "lessons" : [ ],
-  "title" : "as"
-}, {
-  "enrolledStudents" : [ ],
-  "id" : 11,
-  "instructorId" : 15,
-  "lessons" : [ ],
-  "title" : "as"
-}, {
-  "enrolledStudents" : [ ],
-  "id" : 12,
-  "instructorId" : 15,
-  "lessons" : [ ],
-  "title" : "as"
-}, {
-  "enrolledStudents" : [ ],
-  "id" : 13,
-  "instructorId" : 15,
+  "instructorId" : 8,
   "lessons" : [ ],
   "title" : "sa"
 } ]

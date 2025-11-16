@@ -39,13 +39,7 @@ public class CourseDatabase extends Database<Course> {
     public void deleteCourse(int id) {deleteRecord(id);}
     public void deleteLesson(int id) {
         for (Course c : getRecords()) {
-            List<Lesson> ls = c.getLessons();
-            for (Lesson l : ls) {
-                if (l.getId() == id) {
-                    ls.removeIf((t) -> t.getId() == id);
-                    c.setLessons(ls);
-                }
-            }
+            c.getLessons().removeIf((t) -> t.getId() == id);
         }
     }
 
