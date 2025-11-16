@@ -219,10 +219,9 @@ public class StudentLessons extends javax.swing.JFrame {
             MainWindow.goToFrame("StudentDashBoard");
         });
 
+        total = completed = unCompleted = 0;
         if (course.getLessons().isEmpty()) {
-            total = completed = unCompleted = 0;
             currentlessons = null;
-//            showMessage("Course has no lessons available");
         } else {
             currentlessons = course.getLessons();
             total = currentlessons.size();
@@ -235,6 +234,8 @@ public class StudentLessons extends javax.swing.JFrame {
                         StudentService.takeLesson(ID, l.getId());
                         unCompleted++;
                     }
+                } else {
+                    unCompleted++;
                 }
             }
         }
@@ -245,7 +246,7 @@ public class StudentLessons extends javax.swing.JFrame {
         instructorname.setText(InstructorService.getInstructor(course.getInstructorId()).getName());
         Completed.setText("Completed:"+completed);
         uncompleted.setText("UnCompleted:"+unCompleted);
-        progress.setText("Progress:" + ((double)completed/total)*100 + "%");
+        progress.setText(String.format("Progress: %.2f", ((( ((double)completed / (double)total)) * 100))) + "%");
         JPanel lessonsPanel = new JPanel();
         lessonsPanel.setLayout(new BoxLayout(lessonsPanel, BoxLayout.Y_AXIS));
         lessonsPanel.setBackground(Color.WHITE);
@@ -269,7 +270,7 @@ public class StudentLessons extends javax.swing.JFrame {
                                 unCompleted--;
                                 Completed.setText("Completed:"+completed);
                                 uncompleted.setText("UnCompleted:"+unCompleted);
-                                progress.setText("Progress:"+(completed/total)*100+"%");
+                                progress.setText(String.format("Progress: %.2f", ((( ((double)completed / (double)total)) * 100))) + "%");
                             }
                             else{
                                 showMessage("You Need To complete the last Lessons Before This First");
