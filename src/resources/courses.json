@@ -71,9 +71,47 @@
   } ],
   "title" : "Web Development Basics"
 }, {
-  "enrolledStudents" : [ ],
+  "enrolledStudents" : [ 9 ],
   "id" : 5,
   "instructorId" : 8,
+  "lessons" : [ {
+    "content" : "CPU",
+    "id" : 8,
+    "studentProgress" : { },
+    "title" : "lesson 1"
+  }, {
+    "content" : "RAM",
+    "id" : 9,
+    "studentProgress" : { },
+    "title" : "lesson2"
+  }, {
+    "content" : "kkldvlk",
+    "id" : 10,
+    "studentProgress" : { },
+    "title" : "lesson3"
+  }, {
+    "content" : "kkjvv",
+    "id" : 11,
+    "studentProgress" : { },
+    "title" : "lesson4"
+  } ],
+  "title" : "operating system"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 7,
+  "instructorId" : 8,
   "lessons" : [ ],
-  "title" : "fgdgh"
+  "title" : "prog"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 8,
+  "instructorId" : 8,
+  "lessons" : [ ],
+  "title" : "ml;dafm"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 9,
+  "instructorId" : 8,
+  "lessons" : [ ],
+  "title" : "k;af;k"
 } ]
