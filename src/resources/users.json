@@ -1,79 +1,16 @@
-[ {
-  "email" : "john.doe@email.com",
-  "id" : 1,
-  "name" : "John Doe",
-  "password" : "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-  "role" : "Student"
-}, {
-  "email" : "jane.smith@email.com",
-  "id" : 2,
-  "name" : "Jane Smith",
-  "password" : "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-  "role" : "Student"
-}, {
-  "email" : "prof.wilson@email.com",
-  "id" : 3,
-  "name" : "Professor Wilson",
-  "password" : "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
-  "role" : "Instructor"
-}, {
-  "email" : "dr.brown@email.com",
-  "id" : 4,
-  "name" : "Dr. Brown",
-  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-  "role" : "Instructor"
-}, {
-  "email" : "test",
-  "id" : 5,
-  "name" : "test",
-  "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
-  "role" : "Student"
-}, {
-  "email" : "test",
-  "id" : 6,
-  "name" : "test",
-  "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
-  "role" : "Student"
-}, {
-  "email" : "test",
-  "id" : 7,
-  "name" : "test",
-  "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
-  "role" : "Student"
-}, {
-  "email" : "ahmedshrif526@gmail.com",
-  "id" : 8,
-  "name" : "ahmed",
-  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-  "role" : "Instructor"
-}, {
-  "email" : "malek@gmail.com",
-  "id" : 9,
-  "name" : "malek",
-  "password" : "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
-  "role" : "Student"
-}, {
-  "email" : "e@e.e",
-  "id" : 10,
-  "name" : "d",
-  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-  "role" : "Student"
-}, {
-  "email" : "s@s.s",
-  "id" : 11,
-  "name" : "ee",
-  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-  "role" : "Student"
-}, {
-  "email" : "abdoalrahmankhedr95@gmail.com",
-  "id" : 12,
-  "name" : "Abdo khedr",
-  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-  "role" : "Student"
-}, {
-  "email" : "abdo@g.c",
-  "id" : 13,
-  "name" : "abdo",
-  "password" : "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
-  "role" : "Instructor"
-} ]
+[
+  {
+    "id": 1,
+    "password": "264c8c381bf16c982a4e59b0dd4c6f7808c51a05f64c35db42cc78a2a72875bb",
+    "email": "student@school.com",
+    "name": "Andrew",
+    "role": "Student"
+  },
+  {
+    "id": 2,
+    "password": "cf2eb894cc40f5c6e781910063859278a3b214a3a14fedb9ca336ca39962b856",
+    "email": "instructor@school.com",
+    "name": "Andrew Again",
+    "role": "Instructor"
+  }
+]
