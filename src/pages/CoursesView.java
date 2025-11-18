@@ -2,6 +2,7 @@ package pages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
@@ -232,10 +233,12 @@ public class CoursesView extends JPanel {
 
     public static void start(int id) {
         currentstudent = id;
+        for (ActionListener al : Backbtn.getActionListeners()) {
+            Backbtn.removeActionListener(al);
+        }
         Backbtn.addActionListener(e -> {
             StudentDashBoard.start(id);
             MainWindow.goTo("StudentDashBoard");});
         showCards(db.getRecords(), id);
-        MainWindow.goTo("CoursesView");
     }
 }

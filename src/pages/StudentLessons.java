@@ -9,6 +9,7 @@ import windows.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,6 +210,9 @@ public class StudentLessons extends JPanel {
     }
 
     public static void start(Course course, int ID) {
+        for (ActionListener al : BackBtn.getActionListeners()) {
+            BackBtn.removeActionListener(al);
+        }
         BackBtn.addActionListener(e -> {
             StudentDashBoard.start(ID);
             MainWindow.goTo("StudentDashBoard");

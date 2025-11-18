@@ -7,6 +7,7 @@ import windows.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class StudentDashBoard extends JPanel {
@@ -197,6 +198,12 @@ public class StudentDashBoard extends JPanel {
     }
 
     public static void start(int id) {
+        for (ActionListener al : jButton2.getActionListeners()) {
+            jButton2.removeActionListener(al);
+        }
+        for (ActionListener al : jButton1.getActionListeners()) {
+            jButton1.removeActionListener(al);
+        }
         currentStudent = StudentService.getStudent(id);
 
         STudentid.setText("ID: " + currentStudent.getId());
@@ -227,7 +234,7 @@ public class StudentDashBoard extends JPanel {
             MainWindow.goTo("login");
             MainWindow.start();
         });
-        jButton2.addActionListener(e -> CoursesView.start(id));
+        jButton2.addActionListener(e -> {CoursesView.start(id);MainWindow.goTo("CoursesView");});
 
         coursespanel.removeAll();
         coursespanel.setLayout(new BorderLayout());
