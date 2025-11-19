@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 // Andrew :)
 
-public class Certificate {
+public class Certificate implements Model {
     private int id;
     private int courseId;
     private int userId;
