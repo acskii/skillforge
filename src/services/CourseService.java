@@ -28,10 +28,9 @@ public class CourseService {
         // This means the student at least took all lessons
         if (courseLessons.isEmpty() || courseLessons.size() != enrolledLessons.size()) return false;
 
-        // This logic will change if studentProgress changes format
         for (Lesson l : enrolledLessons) {
             if ((!l.getStudentProgress().containsKey(studentId)) ||
-                (!l.getStudentProgress().get(studentId))     // Student didn't lesson or it is incomplete
+                (!l.getStudentProgress().get(studentId).isLessonComplete())     // Student didn't lesson or it is incomplete
             ){
                 return false;
             }
