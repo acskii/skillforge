@@ -110,7 +110,7 @@ public class InstructorService {
         Quiz quiz = courseDb.getQuizById(quizId);
 
         quiz.setRetries(Math.max(retries, 0));
-        quiz.setPassingScore(Math.max(Math.min(((double) passing / (double) questions.size()), 100d), 0d));
+        quiz.setPassingScore(Math.max(Math.min((((double) passing / (double) questions.size()) * 100), 100d), 0d));
         quiz.setQuestions(questions);
 
         courseDb.updateQuiz(quiz);

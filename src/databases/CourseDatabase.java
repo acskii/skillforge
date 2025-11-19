@@ -157,7 +157,7 @@ public class CourseDatabase extends Database<Course> {
         attempt.setQuizId(quizId);
         attempt.setUserId(studentId);
         attempt.setCorrectQuestions(Math.max(correctQuestions, 0));
-        attempt.setScore(((double) correctQuestions / (double) quiz.getQuestions().size()));
+        attempt.setScore(((double) correctQuestions / (double) quiz.getQuestions().size()) * 100);
         attempt.setPassed(attempt.getScore() >= quiz.getPassingScore());
 
         lesson.addAttempt(attempt);
