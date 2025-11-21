@@ -32,8 +32,10 @@ public class UserDatabase extends Database<User> {
         super(filename, User.class);
 
         for (User u : getRecords()) {
-            for (Certificate c : u.getCertificates()) {
-                this.certificateIndex = Math.max(this.certificateIndex, c.getId());
+            if(u.getCertificates()!=null){
+                for (Certificate c : u.getCertificates()) {
+                    this.certificateIndex = Math.max(this.certificateIndex, c.getId());
+                }
             }
         }
     }
@@ -110,6 +112,11 @@ public class UserDatabase extends Database<User> {
             User user = getRecordById(userId);
 
             if (user != null) {
+                // Initialize certificates list if null
+                if (user.getCertificates() == null) {
+                    user.setCertificates(new java.util.ArrayList<>());
+                }
+                
                 Certificate certificate = new Certificate();
                 certificate.setIssued(LocalDate.now());
                 certificate.setCourseId(courseId);

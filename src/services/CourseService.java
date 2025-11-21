@@ -2,9 +2,7 @@ package services;
 
 import databases.CourseDatabase;
 import databases.UserDatabase;
-import models.Certificate;
-import models.Lesson;
-import models.Student;
+import models.*;
 
 import java.util.List;
 
@@ -22,17 +20,35 @@ public class CourseService {
     private static final UserDatabase userDb = UserDatabase.getInstance();
 
     public static boolean isComplete(int courseId, int studentId) {
-        List<Lesson> enrolledLessons = StudentService.getEnrolledLessonsByCourse(studentId, courseId);
-        List<Lesson> courseLessons = courseDb.getCourseById(courseId).getLessons();
+        Course course = courseDb.getCourseById(courseId);
+        if (course == null) {
+            return false;
+        }
+        
+        List<Lesson> courseLessons = course.getLessons();
+        if (courseLessons.isEmpty()) {
+            return false;
+        }
 
-        // This means the student at least took all lessons
-        if (courseLessons.isEmpty() || courseLessons.size() != enrolledLessons.size()) return false;
-
-        for (Lesson l : enrolledLessons) {
-            if ((!l.getStudentProgress().containsKey(studentId)) ||
-                (!l.getStudentProgress().get(studentId).isLessonComplete())     // Student didn't lesson or it is incomplete
-            ){
-                return false;
+        // Check each lesson in the course
+        for (Lesson l : courseLessons) {
+            Progress progress = l.getStudentProgress().getOrDefault(studentId, null);
+            
+            if (progress == null) {
+                return false; // Student hasn't started this lesson
+            }
+            
+            // For quiz-based lessons, check if student has made at least one attempt
+            if (l.getQuiz() != null) {
+                if (progress.getAttempts() == null || progress.getAttempts().isEmpty()) {
+                    return false; // No attempts made yet
+                }
+                // Course is complete if student made at least one attempt in each lesson
+            } else {
+                // For non-quiz lessons, check if lesson is marked complete
+                if (!progress.isLessonComplete()) {
+                    return false;
+                }
             }
         }
 
@@ -41,6 +57,10 @@ public class CourseService {
 
     public Certificate getCertificate(int courseId, int studentId) {
         Student student = StudentService.getStudent(studentId);
+        
+        if (student == null || student.getCertificates() == null) {
+            return null;
+        }
 
         for (Certificate c : student.getCertificates()) {
             if (c.getCourseId() == courseId) {

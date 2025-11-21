@@ -2,6 +2,7 @@ package models;
 
 // Andrew :)
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Model {
@@ -16,6 +17,9 @@ public class User implements Model {
     public User() {}
 
     public void addCertificate(Certificate certificate) {
+        if (this.certificates == null) {
+            this.certificates = new ArrayList<>();
+        }
         this.certificates.add(certificate);
     }
 

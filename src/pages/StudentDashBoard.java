@@ -1,8 +1,13 @@
 package pages;
 
+import databases.CourseDatabase;
 import models.Course;
 import models.Student;
 import services.*;
+import services.CertificateService;
+import services.CourseService;
+import services.StudentService;
+import services.InstructorService;
 import windows.MainWindow;
 
 import javax.swing.*;
@@ -177,9 +182,116 @@ public class StudentDashBoard extends JPanel {
         viewLessonsBtn.setForeground(Color.WHITE);
         viewLessonsBtn.setFocusPainted(false);
         viewLessonsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        viewLessonsBtn.addActionListener(e -> {
-            StudentLessons.start(course, id);
-            MainWindow.goTo("studentlessons");
+        
+        // Capture course ID and student ID as final primitives to avoid lambda closure issues
+        // IMPORTANT: Capture at the method level, not in the loop, to ensure proper closure
+        final int capturedCourseId = course.getId();
+        final int capturedStudentId = id;
+        final String courseTitleForDebug = course.getTitle(); // For verification
+        
+        // Store course ID in action command for debugging
+        viewLessonsBtn.setActionCommand("course_" + capturedCourseId);
+        
+        // Use an anonymous ActionListener class instead of lambda to ensure proper variable capture
+        // This prevents any potential closure issues with lambda expressions in loops
+        viewLessonsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // Verify action command matches (additional safety check)
+                String expectedCommand = "course_" + capturedCourseId;
+                if (!expectedCommand.equals(e.getActionCommand())) {
+                    System.err.println("WARNING: Action command mismatch! Expected: " + expectedCommand + 
+                                     ", Got: " + e.getActionCommand());
+                }
+                
+                // Get fresh course from database using captured course ID to ensure correct course is displayed
+                CourseDatabase courseDb = CourseDatabase.getInstance();
+                Course freshCourse = courseDb.getCourseById(capturedCourseId);
+                
+                if (freshCourse != null) {
+                    // Verify we got the correct course (debug check)
+                    if (freshCourse.getId() != capturedCourseId) {
+                        System.err.println("ERROR: Course ID mismatch! Expected: " + capturedCourseId + 
+                                         ", Got: " + freshCourse.getId());
+                        JOptionPane.showMessageDialog(null, 
+                            "Course ID mismatch detected. Expected: " + capturedCourseId + 
+                            ", Got: " + freshCourse.getId(), 
+                            "Error", 
+                            JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    
+                    // All checks passed, proceed with navigation
+                    StudentLessons.start(freshCourse, capturedStudentId);
+                    MainWindow.goTo("studentlessons");
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                        "Course not found (ID: " + capturedCourseId + ").", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Download Certificate button (only visible if course is completed)
+        JButton downloadCertBtn = new JButton("Download Certificate");
+        downloadCertBtn.setBackground(new Color(0, 153, 0));
+        downloadCertBtn.setFont(new Font("Arial", Font.BOLD, 16));
+        downloadCertBtn.setForeground(Color.WHITE);
+        downloadCertBtn.setFocusPainted(false);
+        downloadCertBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        // Capture course ID and student ID for certificate download
+        final int certCourseId = course.getId();
+        final int certStudentId = id;
+        boolean isCompleted = CourseService.isComplete(certCourseId, certStudentId);
+        downloadCertBtn.setVisible(isCompleted);
+        downloadCertBtn.setEnabled(isCompleted);
+        
+        // Remove any existing listeners first
+        for (ActionListener al : downloadCertBtn.getActionListeners()) {
+            downloadCertBtn.removeActionListener(al);
+        }
+        downloadCertBtn.addActionListener(e -> {
+            // Show toast message
+            JOptionPane.showMessageDialog(
+                null,
+                "Generating certificate — preparing your download...",
+                "Certificate Generation",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            
+            // Get or create certificate
+            CertificateService.getOrCreateCertificate(certStudentId, certCourseId);
+            
+            // Generate and download PDF
+            String filepath = CertificateService.generateCertificatePDF(certStudentId, certCourseId);
+            
+            if (filepath != null) {
+                boolean success = CertificateService.downloadCertificate(filepath);
+                if (success) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Certificate generated successfully! The file should open automatically.",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Certificate generated but could not open automatically. File saved to: " + filepath,
+                        "Info",
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            } else {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Failed to generate certificate. Please try again.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
         });
 
         card.add(Box.createVerticalStrut(10));
@@ -192,6 +304,10 @@ public class StudentDashBoard extends JPanel {
         card.add(idLabel);
         card.add(Box.createVerticalGlue());
         card.add(viewLessonsBtn);
+        if (isCompleted) {
+            card.add(Box.createVerticalStrut(5));
+            card.add(downloadCertBtn);
+        }
         card.add(Box.createVerticalStrut(10));
 
         return card;
@@ -230,11 +346,26 @@ public class StudentDashBoard extends JPanel {
 
         jButton1.setForeground(Color.white);
         jButton2.setForeground(Color.white);
+        
+        // Capture student ID to avoid closure issues
+        final int studentIdForButtons = id;
+        
+        // Remove existing listeners and add new ones
+        for (ActionListener al : jButton1.getActionListeners()) {
+            jButton1.removeActionListener(al);
+        }
         jButton1.addActionListener(e -> {
             MainWindow.goTo("login");
             MainWindow.start();
         });
-        jButton2.addActionListener(e -> {CoursesView.start(id);MainWindow.goTo("CoursesView");});
+        
+        for (ActionListener al : jButton2.getActionListeners()) {
+            jButton2.removeActionListener(al);
+        }
+        jButton2.addActionListener(e -> {
+            CoursesView.start(studentIdForButtons);
+            MainWindow.goTo("CoursesView");
+        });
 
         coursespanel.removeAll();
         coursespanel.setLayout(new BorderLayout());

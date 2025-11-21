@@ -10,6 +10,7 @@ import windows.MainWindow;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseLessons extends JPanel {
@@ -171,9 +172,9 @@ public class CourseLessons extends JPanel {
         lessonsPanel.setLayout(new BoxLayout(lessonsPanel, BoxLayout.Y_AXIS));
         lessonsPanel.setBackground(Color.WHITE);
 
-        for (Lesson l : currentlessons) {
+        for (Lesson l : new ArrayList<>(currentlessons)) {
             LessonCard card = new LessonCard();
-            card.setData(false, l.getTitle(), l.getContent(), l.getStudentProgress().getOrDefault(studentId, false), e -> {});
+            card.setData(false, l.getTitle(), l.getContent(), false, e -> {});
             lessonsPanel.add(card);
             lessonsPanel.add(Box.createVerticalStrut(5));
         }
