@@ -119,7 +119,6 @@ public class QuizView extends JPanel {
             return;
         }
         
-        // Check if student can start a new attempt
         Progress progress = lesson.getStudentProgress().getOrDefault(studentId, null);
         if (progress == null) {
             lesson.addStudent(studentId);
@@ -136,7 +135,6 @@ public class QuizView extends JPanel {
             return;
         }
         
-        // Ask for confirmation to start quiz
         int result = JOptionPane.showConfirmDialog(
             null,
             "Are you sure you want to start the quiz for '" + lesson.getTitle() + "'? This will use one attempt.",
@@ -151,7 +149,6 @@ public class QuizView extends JPanel {
             return;
         }
         
-        // Start new attempt
         CourseDatabase courseDb = CourseDatabase.getInstance();
         currentAttempt = courseDb.startQuizAttempt(studentId, currentQuiz.getId());
         
@@ -162,7 +159,6 @@ public class QuizView extends JPanel {
             return;
         }
         
-        // Refresh progress to get updated attempts
         progress = lesson.getStudentProgress().get(studentId);
         if (progress != null && progress.getAttempts() != null && !progress.getAttempts().isEmpty()) {
             currentAttemptIndex = progress.getAttempts().size() - 1;
@@ -170,7 +166,6 @@ public class QuizView extends JPanel {
             currentAttemptIndex = 0;
         }
         
-        // Update UI
         attemptInfoLabel.setText("Attempt: " + (attemptsUsed + 1) + "/" + maxAttempts);
         attemptInfoLabel.setForeground(Color.BLACK);
         finishBtn.setVisible(true);
@@ -202,14 +197,12 @@ public class QuizView extends JPanel {
             return;
         }
         
-        // Load answers from attempt - ensure we have the latest data
         answers.clear();
         if (currentAttempt != null && currentAttempt.getQuestionAnswers() != null) {
             // Create a new HashMap to ensure we have a fresh copy
             answers = new HashMap<>(currentAttempt.getQuestionAnswers());
         }
         
-        // Update UI for review mode
         backBtn.setText("Back to Lessons");
         for (ActionListener al : backBtn.getActionListeners()) {
             backBtn.removeActionListener(al);
@@ -221,8 +214,7 @@ public class QuizView extends JPanel {
         
         finishBtn.setVisible(false);
         
-        // Show score
-        String scoreText = String.format("Score: %.1f%% (%s)", 
+        String scoreText = String.format("Score: %.1f%% (%s)",
             currentAttempt.getScore(),
             currentAttempt.isPassed() ? "PASSED" : "FAILED"
         );
@@ -452,7 +444,6 @@ public class QuizView extends JPanel {
                     }
                 }
             }
-            
             // Show review mode
             showReview(currentLesson, currentAttempt, currentStudentId, currentCourseId, currentAttemptIndex);
         }

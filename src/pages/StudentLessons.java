@@ -207,17 +207,11 @@ public class StudentLessons extends JPanel {
                 return false; // Student hasn't started this lesson
             }
 
-            // Check if lesson is complete
-            // For quiz-based lessons, check if they made at least one attempt (not
-            // necessarily passed)
             if (previousLesson.getQuiz() != null) {
-                // For quiz lessons, check if student has made at least one attempt
                 if (progress.getAttempts() == null || progress.getAttempts().isEmpty()) {
-                    return false; // No attempts made yet
+                    return false;
                 }
-                // Just need at least one attempt, don't check if they passed
             } else {
-                // For non-quiz lessons, check if lesson is marked complete
                 if (!progress.isLessonComplete()) {
                     return false;
                 }
@@ -253,16 +247,13 @@ public class StudentLessons extends JPanel {
                 Progress lessonProgress = l.getStudentProgress().get(ID);
 
                 if (lessonProgress != null) {
-                    // Check if lesson is completed
                     boolean isCompleted = false;
 
                     if (l.getQuiz() != null) {
-                        // For quiz-based lessons: completed if student made at least one attempt
                         if (lessonProgress.getAttempts() != null && !lessonProgress.getAttempts().isEmpty()) {
                             isCompleted = true;
                         }
                     } else {
-                        // For non-quiz lessons: check if marked as complete
                         isCompleted = lessonProgress.isLessonComplete();
                     }
 
@@ -272,7 +263,6 @@ public class StudentLessons extends JPanel {
                         unCompleted++;
                     }
                 } else {
-                    // Student hasn't started this lesson yet
                     unCompleted++;
                 }
             }
@@ -294,7 +284,6 @@ public class StudentLessons extends JPanel {
             for (Lesson l : currentlessons) {
                 LessonCard card = new LessonCard();
 
-                // Check if lesson has a quiz
                 boolean hasQuiz = l.getQuiz() != null;
                 Progress progressObj = l.getStudentProgress().getOrDefault(ID, null);
 
@@ -313,16 +302,13 @@ public class StudentLessons extends JPanel {
                         lessonComplete = progressObj.isLessonComplete();
                     }
                 } else {
-                    // No quiz - check if lesson is completed the old way
                     Progress lessonProgress = l.getStudentProgress().get(ID);
                     if (lessonProgress != null) {
                         lessonComplete = lessonProgress.isLessonComplete();
                     }
                 }
 
-                // Quiz action handler
                 ActionListener quizAction = e -> {
-                    // Double check that lesson has a quiz
                     if (l.getQuiz() == null) {
                         showMessage("This lesson does not have a quiz.");
                         return;
@@ -332,19 +318,15 @@ public class StudentLessons extends JPanel {
                         showMessage("You Need To complete the last Lessons Before This First");
                         return;
                     }
-
-                    // Start quiz
                     QuizView.start(l, ID, course.getId());
                 };
 
-                // Attempts history action handler
                 ActionListener historyAction = e -> {
                     JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(new StudentLessons());
                     new AttemptsSummaryDialog(parentFrame, l, ID, course.getId()).setVisible(true);
                 };
 
-                // Set card data
-                // Only show "Completed" when all attempts are used, not when lesson is complete
+
                 card.setData(
                         true,
                         l.getTitle(),

@@ -31,12 +31,6 @@ public class CertificateService {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
 
-    /**
-     * Generates a PDF certificate for a student who completed a course
-     * @param studentId The student's ID
-     * @param courseId The course ID
-     * @return The file path of the generated PDF certificate, or null if generation fails
-     */
     public static String generateCertificatePDF(int studentId, int courseId) {
         Student student = StudentService.getStudent(studentId);
         Course course = courseDb.getCourseById(courseId);

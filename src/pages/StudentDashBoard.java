@@ -183,56 +183,17 @@ public class StudentDashBoard extends JPanel {
         viewLessonsBtn.setFocusPainted(false);
         viewLessonsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Capture course ID and student ID as final primitives to avoid lambda closure issues
-        // IMPORTANT: Capture at the method level, not in the loop, to ensure proper closure
+
         final int capturedCourseId = course.getId();
         final int capturedStudentId = id;
         final String courseTitleForDebug = course.getTitle(); // For verification
         
-        // Store course ID in action command for debugging
         viewLessonsBtn.setActionCommand("course_" + capturedCourseId);
-        
-        // Use an anonymous ActionListener class instead of lambda to ensure proper variable capture
-        // This prevents any potential closure issues with lambda expressions in loops
-        viewLessonsBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                // Verify action command matches (additional safety check)
-                String expectedCommand = "course_" + capturedCourseId;
-                if (!expectedCommand.equals(e.getActionCommand())) {
-                    System.err.println("WARNING: Action command mismatch! Expected: " + expectedCommand + 
-                                     ", Got: " + e.getActionCommand());
-                }
-                
-                // Get fresh course from database using captured course ID to ensure correct course is displayed
-                CourseDatabase courseDb = CourseDatabase.getInstance();
-                Course freshCourse = courseDb.getCourseById(capturedCourseId);
-                
-                if (freshCourse != null) {
-                    // Verify we got the correct course (debug check)
-                    if (freshCourse.getId() != capturedCourseId) {
-                        System.err.println("ERROR: Course ID mismatch! Expected: " + capturedCourseId + 
-                                         ", Got: " + freshCourse.getId());
-                        JOptionPane.showMessageDialog(null, 
-                            "Course ID mismatch detected. Expected: " + capturedCourseId + 
-                            ", Got: " + freshCourse.getId(), 
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    
-                    // All checks passed, proceed with navigation
-                    StudentLessons.start(freshCourse, capturedStudentId);
-                    MainWindow.goTo("studentlessons");
-                } else {
-                    JOptionPane.showMessageDialog(null, 
-                        "Course not found (ID: " + capturedCourseId + ").", 
-                        "Error", 
-                        JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
 
+        viewLessonsBtn.addActionListener(e->{
+            StudentLessons.start(course,id);
+            MainWindow.goTo("studentlessons");
+        });
         // Download Certificate button (only visible if course is completed)
         JButton downloadCertBtn = new JButton("Download Certificate");
         downloadCertBtn.setBackground(new Color(0, 153, 0));
