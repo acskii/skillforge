@@ -227,16 +227,23 @@ public class CourseLessons extends javax.swing.JFrame {
         JScrollPane scrollPane = new JScrollPane(lessonsPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
         frame.EnrollBtn.addActionListener(e -> {
-            int response=showMessage("Do You Want to Enroll the Course with name:"+course.getTitle());
-            if(response == JOptionPane.YES_OPTION){
-                 StudentService.enroll(ID,course.getId());
-                 StudentLessons.start(course,ID);
-                 frame.dispose();
-                 StudentDashBoard.start(ID);
-                 MainWindow.goToFrame("StudentDashBoard");
+            if(course.getLessons().size()==0){
+                showMessage("This course is Empty you can`t enroll it now!!");
+                frame.dispose();
+                StudentDashBoard.start(ID);
+                MainWindow.goToFrame("StudentDashBoard");
+            }
+            else{
+                int response=showMessage("Do You Want to Enroll the Course with name:"+course.getTitle());
+                if(response == JOptionPane.YES_OPTION){
+                    StudentService.enroll(ID,course.getId());
+                    StudentLessons.start(course,ID);
+                    frame.dispose();
+                    StudentDashBoard.start(ID);
+                    MainWindow.goToFrame("StudentDashBoard");
+                }
             }
         });
-
         frame.jPanel4.removeAll();
         frame.jPanel4.setLayout(new BorderLayout());
         frame.jPanel4.add(scrollPane, BorderLayout.CENTER);
