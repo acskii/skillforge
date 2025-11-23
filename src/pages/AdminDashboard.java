@@ -27,14 +27,6 @@ public class AdminDashboard extends JPanel {
         initComponents();
     }
 
-    public static void setAdmin(int adminId, String adminName) {
-        loggedInAdminId = adminId;
-        loggedInAdminName = adminName;
-        if (adminLabel != null) {
-            adminLabel.setText("Admin: " + loggedInAdminName);
-        }
-    }
-
     private void initComponents() {
         setLayout(new BorderLayout());
 

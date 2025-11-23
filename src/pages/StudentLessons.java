@@ -306,7 +306,8 @@ public class StudentLessons extends JPanel {
                     if (progressObj != null) {
                         attemptsUsed = progressObj.getAttempts().size();
                         hasAttempts = attemptsUsed > 0;
-                        allAttemptsUsed = attemptsUsed >= maxAttempts;
+                        if(attemptsUsed >= maxAttempts) allAttemptsUsed=true;
+                        else allAttemptsUsed=false;
                         lessonComplete = progressObj.isLessonComplete();
                     }
                 } else {
